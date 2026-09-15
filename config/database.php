@@ -1,4 +1,5 @@
 <?php
+<<<<<<< HEAD
 /**
  * Database connection (MAMP / XAMPP friendly).
  *
@@ -47,3 +48,25 @@ if (!$conn) {
 }
 
 $conn->set_charset("utf8mb4");
+=======
+
+$host = "localhost";
+$username = "root";
+$password = "root";
+$database = "restaurant_db";
+
+$conn = new mysqli(
+    $host,
+    $username,
+    $password,
+    $database
+);
+
+if ($conn->connect_error) {
+    die("Database connection failed: " . $conn->connect_error);
+}
+
+$conn->set_charset("utf8mb4");
+
+?>
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68

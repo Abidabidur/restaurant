@@ -1,6 +1,9 @@
 <?php
 require "config/database.php";
+<<<<<<< HEAD
 require "includes/image_helper.php";
+=======
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
 // Fetch a few available food items for the public menu preview
 $preview = $conn->query("SELECT f.name, f.description, f.price, f.image, c.name AS category
     FROM foods f JOIN categories c ON c.id = f.category_id
@@ -77,17 +80,29 @@ $preview = $conn->query("SELECT f.name, f.description, f.price, f.image, c.name 
             <p style="color:var(--muted);font-size:14px">Browse our menu, add to cart, and place orders from the comfort of your home.</p>
         </div>
         <div class="card" style="text-align:center;padding:32px 24px">
+<<<<<<< HEAD
             <div style="font-size:44px;margin-bottom:16px">📝</div>
+=======
+            <div style="font-size:44px;margin-bottom:16px">🗓️</div>
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
             <h3 style="color:var(--gold);margin-bottom:10px">Table Reservation</h3>
             <p style="color:var(--muted);font-size:14px">Book your table in seconds. We'll have everything ready when you arrive.</p>
         </div>
         <div class="card" style="text-align:center;padding:32px 24px">
+<<<<<<< HEAD
             <div style="font-size:44px;margin-bottom:16px">⏱️</div>
+=======
+            <div style="font-size:44px;margin-bottom:16px">🔔</div>
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
             <h3 style="color:var(--gold);margin-bottom:10px">Real-time Tracking</h3>
             <p style="color:var(--muted);font-size:14px">Track your order status in real time from kitchen to your table.</p>
         </div>
         <div class="card" style="text-align:center;padding:32px 24px">
+<<<<<<< HEAD
             <div style="font-size:44px;margin-bottom:16px">⭐️</div>
+=======
+            <div style="font-size:44px;margin-bottom:16px">⭐</div>
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
             <h3 style="color:var(--gold);margin-bottom:10px">Ratings & Reviews</h3>
             <p style="color:var(--muted);font-size:14px">Share your experience and help us keep our quality at its finest.</p>
         </div>
@@ -107,10 +122,26 @@ $preview = $conn->query("SELECT f.name, f.description, f.price, f.image, c.name 
         <p>A taste of what awaits you. Login to place an order.</p>
     </div>
     <div class="food-grid" style="max-width:1100px;margin:0 auto 32px">
+<<<<<<< HEAD
         <?php while ($f = $preview->fetch_assoc()): ?>
         <div class="food-card">
             <div class="food-img">
                 <img src="<?= htmlspecialchars(food_image($f)) ?>" alt="<?= htmlspecialchars($f['name']) ?>" loading="lazy">
+=======
+        <?php
+        $default_emojis = ['🍕','🍔','🥤','🍰','🍜','🥗'];
+        $i = 0;
+        while ($f = $preview->fetch_assoc()):
+            $image_path = $f['image'] ? 'assets/images/foods/' . htmlspecialchars($f['image']) : null;
+        ?>
+        <div class="food-card">
+            <div class="food-img">
+                <?php if ($image_path && file_exists($image_path)): ?>
+                    <img src="<?= $image_path ?>" alt="<?= htmlspecialchars($f['name']) ?>" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius)">
+                <?php else: ?>
+                    <?= $default_emojis[$i % 6] ?>
+                <?php endif; ?>
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
             </div>
             <div class="food-body">
                 <div class="food-name"><?= htmlspecialchars($f['name']) ?></div>
@@ -121,7 +152,11 @@ $preview = $conn->query("SELECT f.name, f.description, f.price, f.image, c.name 
                 </div>
             </div>
         </div>
+<<<<<<< HEAD
         <?php endwhile; ?>
+=======
+        <?php $i++; endwhile; ?>
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
     </div>
     <div class="text-center">
         <a href="login.php" class="btn">View Full Menu</a>
@@ -160,8 +195,13 @@ $preview = $conn->query("SELECT f.name, f.description, f.price, f.image, c.name 
     </div>
     <div>
         <h4>Hours</h4>
+<<<<<<< HEAD
         <p>Breakfast: 7:00 AM - 11:00 AM</p>
         <p>Lunch & Dinner: 12:00 PM - 10:00 PM</p>
+=======
+        <p>Breakfast: 7:00 AM – 11:00 AM</p>
+        <p>Lunch & Dinner: 12:00 PM – 10:00 PM</p>
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
         <p>Bar/Fine Lounge: open until 1:00 AM</p>
     </div>
     <div>

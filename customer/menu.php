@@ -1,7 +1,10 @@
 <?php
 require "../config/database.php";
 require "../config/auth.php";
+<<<<<<< HEAD
 require "../includes/image_helper.php";
+=======
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
 require_role("customer");
 
 // Categories for filter
@@ -37,6 +40,10 @@ if ($params) { $stmt->bind_param($types, ...$params); }
 $stmt->execute();
 $foods = $stmt->get_result();
 
+<<<<<<< HEAD
+=======
+$emojis = ['🍕','🍔','🥤','🍰','🍜','🥗','🍗','🌮','🍣','🥘','🍱','🍛'];
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -95,10 +102,23 @@ $foods = $stmt->get_result();
             </div>
             <?php else: ?>
             <div class="food-grid" id="foodGrid">
+<<<<<<< HEAD
                 <?php while ($f = $foods->fetch_assoc()): ?>
                 <div class="food-card" data-id="<?= $f['id'] ?>" data-name="<?= htmlspecialchars(addslashes($f['name'])) ?>" data-price="<?= $f['price'] ?>">
                     <div class="food-img">
                         <img src="<?= htmlspecialchars(food_image($f, '../')) ?>" alt="<?= htmlspecialchars($f['name']) ?>" loading="lazy">
+=======
+                <?php $i = 0; while ($f = $foods->fetch_assoc()): 
+                    $image_path = $f['image'] ? '../assets/images/foods/' . htmlspecialchars($f['image']) : null;
+                ?>
+                <div class="food-card" data-id="<?= $f['id'] ?>" data-name="<?= htmlspecialchars(addslashes($f['name'])) ?>" data-price="<?= $f['price'] ?>">
+                    <div class="food-img">
+                        <?php if ($image_path && file_exists($image_path)): ?>
+                            <img src="<?= $image_path ?>" alt="<?= htmlspecialchars($f['name']) ?>" style="width:100%;height:100%;object-fit:cover;border-radius:var(--radius)">
+                        <?php else: ?>
+                            <?= $emojis[$i % count($emojis)] ?>
+                        <?php endif; ?>
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
                     </div>
                     <div class="food-body">
                         <div class="food-name"><?= htmlspecialchars($f['name']) ?></div>
@@ -121,7 +141,11 @@ $foods = $stmt->get_result();
                         </div>
                     </div>
                 </div>
+<<<<<<< HEAD
                 <?php endwhile; ?>
+=======
+                <?php $i++; endwhile; ?>
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
             </div>
             <?php endif; ?>
 

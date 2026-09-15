@@ -4,6 +4,7 @@ if (session_status() === PHP_SESSION_NONE) {
     session_start();
 }
 
+<<<<<<< HEAD
 /**
  * Base URL of the project, worked out from where this file lives on disk
  * rather than hardcoded. Links and redirects keep working no matter what
@@ -22,6 +23,12 @@ function require_login()
 {
     if (!isset($_SESSION['user'])) {
         header("Location: " . BASE_URL . "login.php");
+=======
+function require_login()
+{
+    if (!isset($_SESSION['user'])) {
+        header("Location: /restaurant 2/login.php");
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
         exit;
     }
 }
@@ -33,11 +40,19 @@ function require_role($role)
     if ($_SESSION['user']['role'] !== $role) {
         http_response_code(403);
         echo "<!DOCTYPE html><html><head><title>Access Denied</title>
+<<<<<<< HEAD
         <link rel='stylesheet' href='" . BASE_URL . "assets/css/style.css'></head>
         <body><div class='container'><div class='card' style='text-align:center;margin-top:60px'>
         <h2>⛔ Access Denied</h2>
         <p>You do not have permission to view this page.</p>
         <a class='btn' href='" . BASE_URL . "login.php'>Back to Login</a>
+=======
+        <link rel='stylesheet' href='/restaurant 2/assets/css/style.css'></head>
+        <body><div class='container'><div class='card' style='text-align:center;margin-top:60px'>
+        <h2>⛔ Access Denied</h2>
+        <p>You do not have permission to view this page.</p>
+        <a class='btn' href='/restaurant 2/login.php'>Back to Login</a>
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
         </div></div></body></html>";
         exit;
     }
@@ -48,6 +63,7 @@ function redirect_dashboard()
     $role = $_SESSION['user']['role'];
 
     if ($role === 'admin') {
+<<<<<<< HEAD
         header("Location: " . BASE_URL . "admin/dashboard.php");
     } elseif ($role === 'manager') {
         header("Location: " . BASE_URL . "manager/dashboard.php");
@@ -57,6 +73,17 @@ function redirect_dashboard()
         header("Location: " . BASE_URL . "kitchen/dashboard.php");
     } else {
         header("Location: " . BASE_URL . "login.php");
+=======
+        header("Location: /restaurant 2/admin/dashboard.php");
+    } elseif ($role === 'manager') {
+        header("Location: /restaurant 2/manager/dashboard.php");
+    } elseif ($role === 'customer') {
+        header("Location: /restaurant 2/customer/dashboard.php");
+    } elseif ($role === 'kitchen') {
+        header("Location: /restaurant 2/kitchen/dashboard.php");
+    } else {
+        header("Location: /restaurant 2/login.php");
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
     }
 
     exit;

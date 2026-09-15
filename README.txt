@@ -1,7 +1,11 @@
 ONLINE RESTAURANT MANAGEMENT SYSTEM - GROUP 08
 
 MAMP MAC SETUP
+<<<<<<< HEAD
 1. Copy the "restaurant " folder to:
+=======
+1. Copy the "restaurant 2" folder to:
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
    /Applications/MAMP/htdocs/restaurant 2
 
 2. Start MAMP Apache and MySQL.

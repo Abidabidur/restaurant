@@ -12,7 +12,10 @@ if (!in_array($_SERVER['REMOTE_ADDR'] ?? '', ['127.0.0.1', '::1'])) {
 }
 
 require "config/database.php";
+<<<<<<< HEAD
 require "config/auth.php";
+=======
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
 
 $accounts = [
     'admin@restaurant.com'    => '123456',
@@ -70,10 +73,17 @@ foreach ($accounts as $email => $plainPassword) {
 
     <div class="warn">
         ⚠️ <strong>Security Notice:</strong> Delete this file after setup.<br>
+<<<<<<< HEAD
         Path: <code><?= BASE_URL ?>setup_passwords.php</code>
     </div>
 
     <a href="<?= BASE_URL ?>login.php">→ Go to Login</a>
+=======
+        Path: <code>/restaurant 2/setup_passwords.php</code>
+    </div>
+
+    <a href="/restaurant 2/login.php">→ Go to Login</a>
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
 </div>
 </body>
 </html>

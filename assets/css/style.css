@@ -759,6 +759,7 @@ tbody tr:hover td { background: rgba(255,255,255,.02); }
     align-items: center;
     justify-content: center;
     font-size: 48px;
+<<<<<<< HEAD
     overflow: hidden;
 }
 
@@ -773,6 +774,10 @@ tbody tr:hover td { background: rgba(255,255,255,.02); }
 
 .food-card:hover .food-img img { transform: scale(1.06); }
 
+=======
+}
+
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
 .food-card .food-body { padding: 16px; }
 
 .food-card .food-name {

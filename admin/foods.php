@@ -1,7 +1,10 @@
 <?php
 require "../config/database.php";
 require "../config/auth.php";
+<<<<<<< HEAD
 require "../includes/image_helper.php";
+=======
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
 require_role("admin");
 
 $success = "";
@@ -33,6 +36,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_food'])) {
     $desc  = trim($_POST['description']);
     $price = (float)$_POST['price'];
     $avail = isset($_POST['available']) ? 1 : 0;
+<<<<<<< HEAD
 
     [$image, $img_err] = save_food_image($_FILES['image'] ?? null);
 
@@ -41,6 +45,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_food'])) {
     } elseif ($img_err) {
         $error = $img_err;
     } else {
+=======
+    $image = null;
+
+    // Handle image upload
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $upload_dir = '../assets/images/foods/';
+        $file_ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+        $allowed_exts = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        
+        if (in_array($file_ext, $allowed_exts)) {
+            $new_filename = uniqid('food_') . '.' . $file_ext;
+            $upload_path = $upload_dir . $new_filename;
+            
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $upload_path)) {
+                $image = $new_filename;
+            } else {
+                $error = "Failed to upload image.";
+            }
+        } else {
+            $error = "Invalid image format. Allowed: JPG, JPEG, PNG, GIF, WEBP.";
+        }
+    }
+
+    if (empty($name) || $price <= 0 || $cid <= 0) {
+        $error = "Name, category and price are required.";
+    } elseif (!$error) {
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
         $s = $conn->prepare("INSERT INTO foods(category_id,name,description,price,image,available) VALUES(?,?,?,?,?,?)");
         $s->bind_param("issdsi", $cid, $name, $desc, $price, $image, $avail);
         $s->execute();
@@ -60,6 +91,7 @@ if (isset($_GET['toggle_food'])) {
 // Delete food
 if (isset($_GET['del_food'])) {
     $fid  = (int)$_GET['del_food'];
+<<<<<<< HEAD
 
     $old = $conn->prepare("SELECT image FROM foods WHERE id=? LIMIT 1");
     $old->bind_param("i", $fid); $old->execute();
@@ -67,6 +99,8 @@ if (isset($_GET['del_food'])) {
         delete_food_image($row['image']);
     }
 
+=======
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
     $stmt = $conn->prepare("DELETE FROM foods WHERE id=?");
     $stmt->bind_param("i", $fid);
     $stmt->execute();
@@ -81,6 +115,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_food'])) {
     $desc  = trim($_POST['description']);
     $price = (float)$_POST['price'];
     $avail = isset($_POST['available']) ? 1 : 0;
+<<<<<<< HEAD
+=======
+    $image = null;
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
 
     // Get current image
     $current = $conn->prepare("SELECT image FROM foods WHERE id=?");
@@ -88,6 +126,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_food'])) {
     $current->execute();
     $current_img = $current->get_result()->fetch_assoc()['image'];
 
+<<<<<<< HEAD
     [$new_image, $img_err] = save_food_image($_FILES['image'] ?? null);
 
     if ($img_err) {
@@ -99,6 +138,33 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['edit_food'])) {
         } else {
             $image = $current_img;             // no new upload — keep existing
         }
+=======
+    // Handle new image upload
+    if (isset($_FILES['image']) && $_FILES['image']['error'] === UPLOAD_ERR_OK) {
+        $upload_dir = '../assets/images/foods/';
+        $file_ext = strtolower(pathinfo($_FILES['image']['name'], PATHINFO_EXTENSION));
+        $allowed_exts = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+        
+        if (in_array($file_ext, $allowed_exts)) {
+            $new_filename = uniqid('food_') . '.' . $file_ext;
+            $upload_path = $upload_dir . $new_filename;
+            
+            if (move_uploaded_file($_FILES['image']['tmp_name'], $upload_path)) {
+                $image = $new_filename;
+                // Delete old image if exists
+                if ($current_img && file_exists($upload_dir . $current_img)) {
+                    unlink($upload_dir . $current_img);
+                }
+            } else {
+                $error = "Failed to upload image.";
+            }
+        } else {
+            $error = "Invalid image format. Allowed: JPG, JPEG, PNG, GIF, WEBP.";
+        }
+    } else {
+        // Keep existing image if no new upload
+        $image = $current_img;
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
     }
 
     if (!$error) {
@@ -236,8 +302,19 @@ if ($filter_cat) {
                             <tr>
                                 <td style="color:var(--muted)">#<?= $f['id'] ?></td>
                                 <td>
+<<<<<<< HEAD
                                     <img src="<?= htmlspecialchars(food_image($f, '../')) ?>" alt="<?= htmlspecialchars($f['name']) ?>"
                                          style="width:50px;height:50px;object-fit:cover;border-radius:6px;border:1px solid var(--border)">
+=======
+                                    <?php 
+                                    $img_path = $f['image'] ? '../assets/images/foods/' . htmlspecialchars($f['image']) : null;
+                                    if ($img_path && file_exists($img_path)):
+                                    ?>
+                                        <img src="<?= $img_path ?>" alt="<?= htmlspecialchars($f['name']) ?>" style="width:50px;height:50px;object-fit:cover;border-radius:6px">
+                                    <?php else: ?>
+                                        <div style="width:50px;height:50px;background:var(--bg3);border-radius:6px;display:flex;align-items:center;justify-content:center;font-size:24px">🍽️</div>
+                                    <?php endif; ?>
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
                                 </td>
                                 <td>
                                     <strong><?= htmlspecialchars($f['name']) ?></strong>
@@ -257,7 +334,11 @@ if ($filter_cat) {
                                 <td>
                                     <div class="flex gap-8">
                                         <button class="btn btn-sm btn-outline"
+<<<<<<< HEAD
                                             onclick="openFoodEdit(<?= $f['id'] ?>, <?= $f['category_id'] ?>, '<?= htmlspecialchars(addslashes($f['name'])) ?>', '<?= htmlspecialchars(addslashes($f['description'])) ?>', <?= $f['price'] ?>, <?= $f['available'] ?>, '<?= htmlspecialchars(addslashes(food_image($f, '../'))) ?>')">
+=======
+                                            onclick="openFoodEdit(<?= $f['id'] ?>, <?= $f['category_id'] ?>, '<?= htmlspecialchars(addslashes($f['name'])) ?>', '<?= htmlspecialchars(addslashes($f['description'])) ?>', <?= $f['price'] ?>, <?= $f['available'] ?>, '<?= htmlspecialchars(addslashes($f['image'] ?? '')) ?>')">
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
                                             ✏️ Edit
                                         </button>
                                         <a class="btn btn-sm btn-dark" href="foods.php?toggle_food=<?= $f['id'] ?>">
@@ -327,7 +408,11 @@ if ($filter_cat) {
 
 <script src="../assets/js/script.js"></script>
 <script>
+<<<<<<< HEAD
 function openFoodEdit(id, catId, name, desc, price, avail, imageUrl) {
+=======
+function openFoodEdit(id, catId, name, desc, price, avail, image) {
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
     document.getElementById('fe_id').value    = id;
     document.getElementById('fe_cat').value   = catId;
     document.getElementById('fe_name').value  = name;
@@ -337,7 +422,16 @@ function openFoodEdit(id, catId, name, desc, price, avail, imageUrl) {
     
     // Display current image
     const imgContainer = document.getElementById('fe_current_img');
+<<<<<<< HEAD
     imgContainer.innerHTML = '<img src="' + imageUrl + '" alt="Current picture" style="width:100px;height:100px;object-fit:cover;border-radius:8px;border:2px solid var(--border)">';
+=======
+    if (image) {
+        const imgPath = '../assets/images/foods/' + image;
+        imgContainer.innerHTML = '<img src="' + imgPath + '" alt="Current image" style="width:100px;height:100px;object-fit:cover;border-radius:8px;border:2px solid var(--border)">';
+    } else {
+        imgContainer.innerHTML = '<div style="width:100px;height:100px;background:var(--bg3);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:40px;border:2px solid var(--border)">🍽️</div>';
+    }
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
     
     document.getElementById('foodEditModal').style.display = 'flex';
 }

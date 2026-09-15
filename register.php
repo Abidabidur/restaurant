@@ -46,7 +46,11 @@ if ($_SERVER["REQUEST_METHOD"] === "POST") {
                     'email'=> $email,
                     'role' => 'customer',
                 ];
+<<<<<<< HEAD
                 header("Location: " . BASE_URL . "customer/dashboard.php");
+=======
+                header("Location: /restaurant 2/customer/dashboard.php");
+>>>>>>> 21c6659bf87fc235934203ec109b34ccacceed68
                 exit;
             } else {
                 $error = "Registration failed. Please try again.";
