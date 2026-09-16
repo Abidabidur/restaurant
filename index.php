@@ -166,10 +166,10 @@ $preview = $conn->query("SELECT f.name, f.description, f.price, f.image, c.name 
     </div>
     <div>
         <h4>Location & Contact</h4>
-        <p>Grand Horizon Hotel, 4th Floor</p>
-        <p>137 Skyline Drive, Downtown</p>
+        <p>Grand Abid Hotel, 4th Floor</p>
+        <p>53/1,k.b.road, Downtown</p>
         <p>reservations@aurabistro.com</p>
-        <p>+1 (888) 820-0001</p>
+        <p>01913038572</p>
     </div>
     <div>
         <h4>Navigate</h4>
