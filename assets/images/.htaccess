@@ -1,0 +1,4 @@
+# Pictures only — never execute uploaded content as code.
+<FilesMatch "\.(php|phtml|phar|cgi|pl)$">
+    Require all denied
+</FilesMatch>
