@@ -3,7 +3,8 @@ require "../config/database.php";
 require "../config/auth.php";
 require_role("kitchen");
 
-
+$success = "";
+$error   = "";
 
 // Add ingredient
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['add_ingredient'])) {
